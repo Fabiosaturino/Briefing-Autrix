@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Autrix · Briefing do Agente</title>
+<meta property="og:title" content="Autrix · Briefing do Agente">
+<meta property="og:description" content="Preencha o briefing para construirmos seu agente de atendimento personalizado.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap');
+  :root{--bg:#0b0d1a;--card:#161a2e;--border:#252a45;--accent:#6c63ff;--accent2:#4a90d9;--text:#e8eaf6;--muted:#6b7280;--success:#34d399}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--bg);color:var(--text);font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:300;min-height:100vh;padding:0 0 80px;background-image:radial-gradient(ellipse 80% 40% at 50% -10%,rgba(108,99,255,.15) 0%,transparent 70%)}
+
+  /* === BANNER NO-JS === */
+  #nojs-banner{background:linear-gradient(135deg,#6c63ff,#4a90d9);padding:24px 20px;text-align:center;font-size:15px;font-weight:500;color:#fff;line-height:1.6;position:sticky;top:0;z-index:9999}
+  #nojs-banner b{display:block;font-size:18px;margin-bottom:8px}
+  #nojs-banner .steps{background:rgba(0,0,0,.2);border-radius:10px;padding:14px 16px;margin-top:14px;font-size:13px;text-align:left;line-height:1.8}
+  #nojs-banner .steps span{display:inline-block;width:22px;height:22px;background:rgba(255,255,255,.2);border-radius:50%;text-align:center;line-height:22px;font-size:11px;font-weight:700;margin-right:6px}
+
+  .topbar{background:rgba(11,13,26,.92);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100}
+  .logo-name{font-family:'Syne',sans-serif;font-weight:400;font-size:17px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.9)}
+  .topbar-right{margin-left:auto;font-size:11px;color:var(--muted)}
+
+  .progress-bar{height:2px;background:var(--border);position:sticky;top:52px;z-index:99}
+  .progress-fill{height:100%;background:linear-gradient(to right,var(--accent),var(--accent2));width:0%;transition:width .4s;box-shadow:0 0 10px var(--accent)}
+
+  .container{max-width:720px;margin:0 auto;padding:44px 16px 0}
+
+  .hero{margin-bottom:44px}
+  .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(108,99,255,.15);border:1px solid rgba(108,99,255,.25);border-radius:20px;padding:6px 14px;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:18px}
+  .hero-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 6px var(--accent);display:inline-block;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+  h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,6vw,3.2rem);font-weight:300;line-height:1.1;margin-bottom:14px;background:linear-gradient(135deg,#e8eaf6 30%,#6c63ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .hero-sub{font-size:14px;color:var(--muted);line-height:1.7;max-width:500px}
+
+  .steps-nav{display:flex;gap:5px;margin-bottom:32px;flex-wrap:wrap}
+  .sdot{width:16px;height:3px;border-radius:2px;background:var(--border);transition:all .3s}
+  .sdot.done{background:var(--success)}
+
+  .sec-hdr{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+  .sec-icon{width:38px;height:38px;border-radius:10px;background:rgba(108,99,255,.08);border:1px solid rgba(108,99,255,.25);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+  .sec-title{font-family:'Syne',sans-serif;font-weight:600;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+  .sec-desc{font-size:11px;color:var(--muted);margin-top:2px}
+
+  .divider{height:1px;background:linear-gradient(to right,var(--accent),transparent);opacity:.2;margin:28px 0 20px}
+
+  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 16px;margin-bottom:14px;transition:border-color .3s}
+  .card:focus-within{border-color:#4a4fcc;box-shadow:0 0 0 3px rgba(108,99,255,.2)}
+  .q-hdr{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}
+  .q-num{width:26px;height:26px;border-radius:7px;background:rgba(108,99,255,.08);border:1px solid rgba(108,99,255,.3);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:11px;color:var(--accent);flex-shrink:0;margin-top:2px}
+  .q-text{font-size:14px;font-weight:500;color:var(--text);line-height:1.5;flex:1}
+  .q-tags{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+  .tag{font-size:9px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;padding:3px 8px;border-radius:4px}
+  .tq{background:rgba(108,99,255,.12);color:#a89dff;border:1px solid rgba(108,99,255,.2)}
+  .tr{background:rgba(52,211,153,.1);color:#34d399;border:1px solid rgba(52,211,153,.2)}
+  .tp{background:rgba(74,144,217,.1);color:#4a90d9;border:1px solid rgba(74,144,217,.2)}
+
+  textarea{width:100%;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:9px;color:var(--text);font-family:inherit;font-size:16px;font-weight:300;padding:12px 14px;resize:vertical;outline:none;min-height:80px;-webkit-appearance:none;appearance:none}
+  textarea:focus{border-color:var(--accent);background:rgba(108,99,255,.04)}
+  textarea::placeholder{color:#3a3f5c}
+
+  .hint{font-size:11px;color:#4a4f6a;margin-top:7px;line-height:1.5;display:flex;gap:6px}
+  .hint::before{content:'\2192';color:var(--accent);flex-shrink:0}
+
+  .btn-generate{display:block;width:100%;padding:18px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:12px;color:#fff;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;letter-spacing:.05em;cursor:pointer;box-shadow:0 4px 24px rgba(108,99,255,.35);min-height:56px;-webkit-appearance:none;appearance:none;touch-action:manipulation;-webkit-user-select:none;user-select:none;margin:28px 0 0}
+  .btn-generate:active{opacity:.8}
+
+  #resultado{display:none;margin-top:36px}
+  .result-card{background:var(--card);border:1px solid rgba(108,99,255,.3);border-radius:14px;padding:22px 16px;box-shadow:0 0 40px rgba(108,99,255,.1)}
+  .res-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:12px}
+  .res-title{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--success);display:flex;align-items:center;gap:8px}
+  .res-check{width:22px;height:22px;background:rgba(52,211,153,.15);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px}
+  .btn-copy{background:rgba(108,99,255,.08);border:1px solid rgba(108,99,255,.3);border-radius:8px;color:var(--accent);font-family:inherit;font-size:13px;font-weight:500;padding:10px 20px;cursor:pointer;-webkit-appearance:none;appearance:none;touch-action:manipulation;min-height:44px;width:100%}
+  .btn-copy.ok{color:var(--success);border-color:rgba(52,211,153,.4);background:rgba(52,211,153,.08)}
+
+  #output-text{background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:10px;padding:16px;font-size:12px;line-height:1.8;color:#c5c8e8;white-space:pre-wrap;word-break:break-word;max-height:420px;overflow-y:auto;-webkit-overflow-scrolling:touch;font-family:inherit}
+  .copy-note{font-size:12px;color:var(--muted);margin-top:14px;text-align:center}
+
+  @media(max-width:600px){
+    .topbar{padding:12px 16px}
+    .progress-bar{top:48px}
+    .container{padding:28px 12px 0}
+    h1{font-size:clamp(1.7rem,7vw,2.4rem)}
+    .card{padding:16px 12px}
+    .q-text{font-size:13px}
+  }
+</style>
+</head>
+<body>
+
+<!-- BANNER: visível quando JS está bloqueado -->
+<div id="nojs-banner">
+  <b>📱 Abra no navegador para preencher</b>
+  O WhatsApp não permite formulários interativos. Para preencher o briefing:
+  <div class="steps">
+    <span>1</span> Toque nos <b>3 pontinhos</b> (⋮) no canto superior direito<br>
+    <span>2</span> Selecione <b>"Abrir no navegador"</b> ou <b>"Abrir com..."</b><br>
+    <span>3</span> Escolha <b>Chrome</b> ou <b>Safari</b>
+  </div>
+</div>
+<!-- Se o JS rodar, esconde o banner imediatamente -->
+<script>document.getElementById('nojs-banner').style.display='none';</script>
+
+<div class="topbar">
+  <span class="logo-name">AUTRIX</span>
+  <span class="topbar-right">Briefing &middot; Agente</span>
+</div>
+
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+<div class="container">
+  <div class="hero">
+    <div class="hero-eyebrow"><span class="hero-dot"></span> Novo Projeto</div>
+    <h1>Briefing do<br>Agente de Atendimento</h1>
+    <p class="hero-sub">Preencha as perguntas abaixo para construirmos um agente personalizado para o seu negócio.</p>
+  </div>
+
+  <div class="steps-nav" id="stepsNav"></div>
+
+  <!-- BLOCO 1 -->
+  <div class="sec-hdr"><div class="sec-icon">🏢</div><div><div class="sec-title">Identidade &amp; Contexto</div><div class="sec-desc">Quem é o agente e o que representa</div></div></div>
+
+  <div class="card"><div class="q-hdr"><div class="q-num">01</div><div class="q-text">Qual é o nome do agente e qual empresa ou serviço ele representa? Como você quer que ele se apresente ao cliente?</div></div><div class="q-tags"><span class="tag tq">Qualificação</span></div><textarea id="q1" placeholder="Ex: Júlia, consultora de atendimento do Colégio Objetivo Infantil..." oninput="up()"></textarea><div class="hint">O nome humanizado e a apresentação já entregam o valor principal da empresa.</div></div>
+
+  <div class="card"><div class="q-hdr"><div class="q-num">02</div><div class="q-text">Quais são os dados institucionais do negócio? Informe endereço, telefone, WhatsApp, site e horários.</div></div><div class="q-tags"><span class="tag tq">Qualificação</span></div><textarea id="q2" placeholder="Ex: Rua das Flores, 123 — Centro, SP. WhatsApp: (11) 99999-0000..." oninput="up()"></textarea><div class="hint">O agente precisa desses dados para responder sem inventar.</div></div>
+
+  <div class="card"><div class="q-hdr"><div class="q-num">03</div><div class="q-text">Conte a história do negócio: fundação, trajetória e credenciais.</div></div><div class="q-tags"><span class="tag tq">Qualificação</span></div><textarea id="q3" placeholder="Ex: Fundada em 2010, mais de 3.000 clientes atendidos..." oninput="up()"></textarea><div class="hint">A história ancora autoridade e reduz objeções de desconfiança.</div></div>
+
+  <div class="card"><div class="q-hdr"><div class="q-num">04</div><div class="q-text">Quais os principais produtos/serviços? Qual gera mais dúvidas? Informe redes sociais e links.</div></div><div class="q-tags"><span class="tag tq">Qualificação</span></div><textarea id="q4" placeholder="Liste os serviços e destaque o mais procurado..." oninput="up()"></textarea><div class="hint">Identificar o produto estrela ajuda a preparar os argumentos de valor.</div></div>
+
+  <div class="card"><div class="q-hdr"><div class="q-num">05</div><div class="q-text">Quem é o perfil ideal do cliente? Existe algum perfil que chega mas não converte bem?</div></div><div class="q-tags"><span class="tag tq">Qualificação</span><span class="tag tr">Retenção</span></div><textarea id="q5" placeholder="Descreva o cliente ideal: faixa etária, necessidade, poder aquisitivo..." oninput="up()"></textarea><div class="hint">Define a temperatura do lead e adapta a abordagem.</div></div>
+
+  <div class="divider"></div>
+
+  <!-- BLOCO 2 -->
+  <div class="sec-hdr"><div class="sec-icon">🎯</div><div><div class="sec-title">Funil &amp; Comportamento do Lead</div><div class="sec-desc">Como o cliente chega e como deve avançar</div></div></div>
+
+  <div class="card"><div class="q-hdr"><div class="q-num">06</div><div class="q-text">Qual a primeira coisa que os clientes perguntam? O que interrompe a conversa antes da conversão?</div></div><div class="q-tags"><span class="tag tr">Retenção</span></div><textarea id="q6" placeholder="Ex: Sempre perguntam o preço logo de cara..." oninput="up()"></textarea><div class="hint">Expõe o principal ponto de atrito do funil.</div></div>
+
+  <div class="card"><div class="q-hdr"><div class="q-num">07</div><div class="q-text">Como o agente deve lidar com perguntas sobre preço? Pode informar valores diretamente?</div></div><div class="q-tags"><span class="tag tr">Retenção</span><span class="tag tp">Preço</span></div><textarea id="q7" placeholder="Ex: Prefiro que ancora o valor antes de falar o preço..." oninput="up()"></textarea><div class="hint">Ancorar valor → contextualizar → propor próximo passo.</div></div>
+
+  <div class="card"><div class="q-hdr"><div class="q-num">08</div><div class="q-text">Qual o próximo passo desejado após o primeiro contato? (visita, agendamento, proposta, ligação)</div></div><div class="q-tags"><span class="tag tr">Retenção</span></div><textarea id="q8" placeholder="Descreva o CTA ideal e alternativas..." oninput="up()"></textarea><div class="hint">O agente nunca deve deixar o cliente sem saber o que fazer a seguir.</div></div>
+
+  <div class="divider"></div>
+
+  <!-- BLOCO 3 -->
+  <div class="sec-hdr"><div class="sec-icon">🎭</div><div><div class="sec-title">Personalidade &amp; Tom</div><div class="sec-desc">Como o agente deve se comunicar</div></div></div>
+
+  <div class="card"><div class="q-hdr"><div class="q-num">09</div><div class="q-text">Qual deve ser o tom da conversa? (formal / informal / acolhedor / consultivo / direto / empático)</div></div><div class="q-tags"><span class="tag tr">Retenção</span></div><textarea id="q9" placeholder="Ex: Acolhedor e consultivo, meio formal..." oninput="up()"></textarea><div class="hint">O tom é o DNA emocional do agente.</div></div>
+
+  <div class="card"><div class="q-hdr"><div class="q-num">10</div><div class="q-text">Quais informações o agente precisa coletar para qualificar o cliente?</div></div><div class="q-tags"><span class="tag tq">Qualificação</span></div><textarea id="q10" placeholder="Liste 3 a 4 informações essenciais..." oninput="up()"></textarea><div class="hint">Qualificação invisível — perguntas naturais, não um formulário.</div></div>
+
+  <div class="divider"></div>
+
+  <!-- BLOCO 4 -->
+  <div class="sec-hdr"><div class="sec-icon">🔁</div><div><div class="sec-title">Limites &amp; Transferência</div><div class="sec-desc">Quando o agente passa para um humano</div></div></div>
+
+  <div class="card"><div class="q-hdr"><div class="q-num">11</div><div class="q-text">Em quais situações o agente deve transferir para um humano? Como comunicar a transição?</div></div><div class="q-tags"><span class="tag tr">Retenção</span></div><textarea id="q11" placeholder="Ex: Quando o cliente tiver objeção forte ou estiver pronto para fechar..." oninput="up()"></textarea><div class="hint">A transferência deve ser apresentada como upgrade, não limitação.</div></div>
+
+  <div class="card"><div class="q-hdr"><div class="q-num">12</div><div class="q-text">Qual o horário de funcionamento? Quando há humano disponível para transferência?</div></div><div class="q-tags"><span class="tag tr">Retenção</span></div><textarea id="q12" placeholder="Ex: Seg a sex 9h-18h. Sáb 9h-13h..." oninput="up()"></textarea><div class="hint">O agente precisa saber quando pode transferir.</div></div>
+
+  <div class="card"><div class="q-hdr"><div class="q-num">13</div><div class="q-text">Como o atendente humano entra na conversa? Assume direto, recebe aviso, ou há contato específico?</div></div><div class="q-tags"><span class="tag tr">Retenção</span></div><textarea id="q13" placeholder="Ex: O humano assume a mesma conversa no WhatsApp..." oninput="up()"></textarea><div class="hint">Quanto mais fluida a passagem, menor a chance do lead abandonar.</div></div>
+
+  <div class="card"><div class="q-hdr"><div class="q-num">14</div><div class="q-text">Há assuntos ou termos que o agente deve evitar? Promessas que não pode fazer?</div></div><div class="q-tags"><span class="tag tr">Retenção</span><span class="tag tq">Qualificação</span></div><textarea id="q14" placeholder="Ex: Nunca dizer 'garantido'. Não revelar tabela de preços completa..." oninput="up()"></textarea><div class="hint">Definir limites protege a reputação da empresa.</div></div>
+
+  <div class="divider"></div>
+
+  <!-- BLOCO 5 -->
+  <div class="sec-hdr"><div class="sec-icon">💳</div><div><div class="sec-title">Oferta &amp; Condições Comerciais</div><div class="sec-desc">O que o cliente precisa saber antes de decidir</div></div></div>
+
+  <div class="card"><div class="q-hdr"><div class="q-num">15</div><div class="q-text">Diagnóstico/consulta é gratuito ou pago? Quais formas de pagamento?</div></div><div class="q-tags"><span class="tag tp">Preço</span><span class="tag tr">Retenção</span></div><textarea id="q15" placeholder="Ex: Diagnóstico gratuito. Pix ou cartão em até 6x..." oninput="up()"></textarea><div class="hint">Perguntas mais frequentes antes da conversão.</div></div>
+
+  <div class="divider"></div>
+
+  <!-- BLOCO 6 -->
+  <div class="sec-hdr"><div class="sec-icon">🧠</div><div><div class="sec-title">Conhecimento &amp; Objeções</div><div class="sec-desc">O que o agente precisa saber para responder bem</div></div></div>
+
+  <div class="card"><div class="q-hdr"><div class="q-num">16</div><div class="q-text">Nome do atendente que recebe a transferência? Por onde chegam os leads?</div></div><div class="q-tags"><span class="tag tr">Retenção</span><span class="tag tq">Qualificação</span></div><textarea id="q16" placeholder="Ex: Atendente: Carla. Leads via Instagram e Google Ads..." oninput="up()"></textarea><div class="hint">O nome humaniza a transferência.</div></div>
+
+  <div class="card"><div class="q-hdr"><div class="q-num">17</div><div class="q-text">Quais as 3 a 5 objeções mais comuns e a melhor resposta para cada?</div></div><div class="q-tags"><span class="tag tr">Retenção</span></div><textarea id="q17" placeholder="Ex: 'Está caro' → reforçar diferencial. 'Vou pensar' → urgência leve..." oninput="up()"></textarea><div class="hint">Objeções mapeadas evitam improviso em momentos críticos.</div></div>
+
+  <div class="card"><div class="q-hdr"><div class="q-num">18</div><div class="q-text">Existe material de apoio? (tabela de preços, catálogo, FAQ, cardápio)</div></div><div class="q-tags"><span class="tag tq">Qualificação</span></div><textarea id="q18" placeholder="Ex: Tenho FAQ com 20 perguntas e tabela de planos em PDF..." oninput="up()"></textarea><div class="hint">Materiais viram a base de conhecimento (RAG) do agente.</div></div>
+
+  <div class="divider"></div>
+
+  <!-- BLOCO 7 -->
+  <div class="sec-hdr"><div class="sec-icon">🔔</div><div><div class="sec-title">Follow-up Automático</div><div class="sec-desc">Somente se contratado</div></div></div>
+
+  <div class="card"><div class="q-hdr"><div class="q-num">19</div><div class="q-text">⚠️ Apenas se contratado. Quantas tentativas? Intervalo? Tom de cada mensagem?</div></div><div class="q-tags"><span class="tag tr">Retenção</span></div><textarea id="q19" placeholder="Ex: 3 tentativas. 1ª após 2h, 2ª após 24h, 3ª após 48h..." oninput="up()"></textarea><div class="hint">Sem workflow ativo no N8N, não entra no System Message.</div></div>
+
+  <button class="btn-generate" type="button" onclick="gerar()">⚡ Gerar Resumo para Envio</button>
+
+  <div id="resultado">
+    <div class="result-card">
+      <div class="res-hdr">
+        <div class="res-title"><span class="res-check">✓</span> Briefing gerado</div>
+        <button class="btn-copy" type="button" id="btnCopy" onclick="copiar()">Copiar tudo</button>
+      </div>
+      <pre id="output-text"></pre>
+      <div class="copy-note">Copie e envie por WhatsApp ou e-mail para a Autrix.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+var T=19;
+function up(){
+  var f=0,i;
+  for(i=1;i<=T;i++){var e=document.getElementById('q'+i);if(e&&e.value&&e.value.trim())f++}
+  var b=document.getElementById('progressFill');if(b)b.style.width=Math.round(f/T*100)+'%';
+  var n=document.getElementById('stepsNav');if(!n)return;n.innerHTML='';
+  for(i=1;i<=T;i++){var d=document.createElement('div');var el=document.getElementById('q'+i);d.className='sdot'+((el&&el.value&&el.value.trim())?' done':'');n.appendChild(d)}
+}
+function gerar(){
+  var L=['Nome e apresentação do agente','Dados institucionais','História e credenciais','Produtos, serviços e redes sociais','Perfil ideal do cliente','Primeira pergunta / ponto de atrito','Política de preço','Próximo passo desejado (CTA)','Tom da conversa','Informações para qualificação','Gatilhos de transferência humana','Horário de funcionamento','Canal e forma de transferência','Limites e termos proibidos','Diagnóstico e formas de pagamento','Atendente humano e origem do lead','Objeções mais comuns','Material de apoio','Follow-up automático'];
+  var t='================================\n   AUTRIX - BRIEFING DO AGENTE\n================================\n\n';
+  for(var i=1;i<=T;i++){var e=document.getElementById('q'+i);var v=(e&&e.value)?e.value.trim():'';t+='['+(i<10?'0'+i:i)+'] '+L[i-1]+'\n'+(v||'(não respondido)')+'\n\n'}
+  t+='================================\nGerado via Autrix - autrix.com.br';
+  var o=document.getElementById('output-text');if(o)o.textContent=t;
+  var r=document.getElementById('resultado');if(r){r.style.display='block';setTimeout(function(){r.scrollIntoView({behavior:'smooth',block:'start'})},200)}
+}
+function copiar(){
+  var o=document.getElementById('output-text');if(!o)return;var t=o.textContent||o.innerText||'';
+  function ok(){var b=document.getElementById('btnCopy');if(!b)return;b.textContent='✓ Copiado!';b.className='btn-copy ok';setTimeout(function(){b.textContent='Copiar tudo';b.className='btn-copy'},2500)}
+  function fb(s,cb){var a=document.createElement('textarea');a.value=s;a.setAttribute('readonly','');a.style.cssText='position:fixed;left:0;top:0;width:1px;height:1px;opacity:.01;z-index:99999';document.body.appendChild(a);if(/ipad|ipod|iphone/i.test(navigator.userAgent)){a.contentEditable=true;a.readOnly=false;var rng=document.createRange();rng.selectNodeContents(a);var sel=window.getSelection();sel.removeAllRanges();sel.addRange(rng);a.setSelectionRange(0,999999)}else{a.focus();a.select()}try{document.execCommand('copy');if(cb)cb()}catch(e){}document.body.removeChild(a)}
+  if(navigator.clipboard&&typeof navigator.clipboard.writeText==='function'){navigator.clipboard.writeText(t).then(ok,function(){fb(t,ok)})}else{fb(t,ok)}
+}
+up();
+</script>
+</body>
+</html>
